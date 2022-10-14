@@ -12,3 +12,4 @@ content
 out
 .idea
 *.iml
+venv/
