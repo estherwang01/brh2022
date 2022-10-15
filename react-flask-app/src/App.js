@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Title from './title';
+import Calculate from './calculate';
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(0);
-
-  useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
-    });
-  }, []);
+  const [view, setView] = useState(0); 
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>The current time is {currentTime}.</p>
-      </header>
+      {view == 0 &&<Title onClick={setView}/>}
+      {view == 1 && <Calculate />}
     </div>
   );
 }
 
 export default App;
+
+
+
+
