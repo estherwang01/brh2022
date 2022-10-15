@@ -1,5 +1,8 @@
 export const getInt = (n, d) => {
     if (isNaN(n)){
+        if(n === ""){
+            return 0; 
+        }
         return d; 
     } else return parseInt(n); 
   }

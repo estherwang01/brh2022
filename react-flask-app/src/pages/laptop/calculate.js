@@ -34,6 +34,9 @@ function Calculate() {
   const [devices, setDevices] = useState(1); 
   const [ret, setRet] = useState({}); 
 
+  const sizes1 = ["large", "small"]; 
+  const sizes2 = ["default size"]
+
   useEffect(()=>{
     const fetchData = async () => {
       const modified_data = { "zipcode": zip, "devices": data}
@@ -69,7 +72,6 @@ function Calculate() {
   }
 
   const setSize = (index, value) => {
-    console.log(value); 
     let old = data[index]
     old["device_size"] = value; 
     let newa = [...data]
@@ -114,7 +116,7 @@ function Calculate() {
                   <Device fields={["Device Type", "Size", "Charges Per Day"]} 
                   onChangeFunctions={[(val) => setType(i, val), (val) => setSize(i, val), (val) => setCharges(i, val)]}
                   type = {['dropdown', 'dropdown', 'input']} 
-                dropdowns={[["laptop", "phone", "tablet"], ["large", "small"], []]} 
+                dropdowns= {data[i]["device_class"] === "laptop"? [["laptop", "phone", "tablet"], sizes1, []] : [["laptop", "phone", "tablet"], sizes2, []]} 
                   /></div>)}
             </div>
             <br></br>
