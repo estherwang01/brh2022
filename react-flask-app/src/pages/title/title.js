@@ -26,12 +26,15 @@ function Title(props) {
     ]
 
     useEffect(()=>{
-        // if(document.querySelector('video') != null){
-        //     document.querySelector('video').playbackRate = .5;
-        // }
+        if(document.querySelector('video') != null){
+            document.querySelector('video').playbackRate = .5;
+        }
     }, [video])
 
     const switchThing = (x) => {
+        if(x < 0){
+            x = 3+x;
+        }
         setVideo((video + x) % 3); 
     }
 
