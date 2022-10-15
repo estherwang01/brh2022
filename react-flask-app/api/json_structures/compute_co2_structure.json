@@ -1,0 +1,33 @@
+{
+  "zipcode" : "12345",
+  "devices" : [
+    {
+      "mode" : "normal",
+      "device_class" : "laptop",
+      "device_size" : "small",
+      "charges_per_day" : 1.0
+    },
+    {
+      "mode" : "normal",
+      "device_class" : "laptop",
+      "device_size" : "large",
+      "charges_per_day" : 4.5
+    },
+    {
+      "mode" : "normal",
+      "device_class" : "phone",
+      "charges_per_day" : 1.0
+    },
+    {
+      "mode" : "normal",
+      "device_class" : "tablet",
+      "charges_per_day" : 1.0
+    },
+    {
+      "mode" : "advanced",
+      "device_class" : "laptop",
+      "device_battery_size_wh" : 100.0,
+      "charges_per_day" : 1.0
+    }
+  ]
+}
