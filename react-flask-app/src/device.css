@@ -1,9 +1,24 @@
 .container {
     position: relative; 
     display: flex; ; 
-    background-color: white; 
+    background-color: #3E3924; 
     padding: 10px; 
     margin: auto;  
     width: fit-content; 
+    border-radius: 5px 5px 5px 5px;
+    margin: 15px;
+}
+.input{
+    /* background-color: #FBF1DA;  */
+    border-color: #3E3924;
+    border-radius: 9px 9px 9px 9px;
+    border-style: none;
+}
 
+.pad{
+    width: 10px; 
+    background-color: #3E3924;
+}
+.field{
+    color: #FBF1DA; 
 }
