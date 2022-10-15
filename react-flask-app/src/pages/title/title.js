@@ -10,7 +10,6 @@ import right from "../../files/righta.png"
 function Title(props) {
 
     document.addEventListener('keydown', function(event){
-        console.log(event.key); 
         if(event.key == 'ArrowLeft'){
             switchThing(-1); 
         }
@@ -27,12 +26,15 @@ function Title(props) {
     ]
 
     useEffect(()=>{
-        // if(document.querySelector('video') != null){
-        //     document.querySelector('video').playbackRate = .5;
-        // }
+        if(document.querySelector('video') != null){
+            document.querySelector('video').playbackRate = .5;
+        }
     }, [video])
 
     const switchThing = (x) => {
+        if(x < 0){
+            x = 3+x;
+        }
         setVideo((video + x) % 3); 
     }
 

@@ -58,3 +58,8 @@
 .devicesContainer::-webkit-scrollbar {
   display: none;
 }
+
+.device{
+  width: fit-content; 
+  margin: auto; 
+}

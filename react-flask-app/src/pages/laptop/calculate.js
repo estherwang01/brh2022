@@ -2,27 +2,89 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css'
 import Device from '../../components/Device/device';
 import video from "../../files/duck.mp4"; 
-import { getInt } from "../../util"; 
+import { getInt, isValidZipCode } from "../../util"; 
 import left from "../../files/lefta.png"; 
+import Icon from '../../components/icon/icon';
+
+import beetle from "../../files/beetle.png"; 
+import cheating from "../../files/cheating_beetle.png"
+import co2 from "../../files/co2_oilrig.jpg"; 
+import cow from "../../files/tipped_cow.png"; 
+import methane from "../../files/methane_flamethrower.jpg"; 
+import nitrogen from "../../files/nitrogen_natgas.jpg"
+import rocket from "../../files/rocketship.png"; 
 
 function Calculate() {
+
+  const defaultVals = {
+    "mode": "normal",
+    "device_class" : "laptop",
+    "device_size" : "large",
+    "charges_per_day" : 0.0
+  }
   const [view, setView] = useState(0); 
-  const [zip, setZip] = useState(14853); 
+  const [zip, setZip] = useState(12345); 
+  const [data, setData] = useState([{
+    "mode": "normal",
+    "device_class" : "laptop",
+    "device_size" : "large",
+    "charges_per_day" : 0.0
+  }]); 
 
   const [devices, setDevices] = useState(1); 
-  const addDevice = () => { setDevices(devices+1)}
-  const [total, setTotal] = useState(0); 
+  const [ret, setRet] = useState({}); 
 
-  const f1 = (n) =>{
-    setTotal(total + (1000*n))
-  }
-  const f2 = (n) => {
-    setTotal(total + n)
+  const sizes1 = ["large", "small"]; 
+  const sizes2 = ["default size"]
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      const modified_data = { "zipcode": zip, "devices": data}
+      await fetch("/compute_co2", {
+        method: "POST",
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(modified_data)
+        }).then(response => response.json()).then(dat => { setRet(dat);})
+    }
+    fetchData()
+  }, [data])
+
+  const addDevice = () => { 
+    setDevices(devices+1); 
+    setData([...data, defaultVals]); 
   }
 
   const setZipcode = (n) => {
-    let ni = getInt(n, 14853); 
-    setZip(ni); 
+    if(isValidZipCode(n)){
+      let ni = getInt(n, 14853); 
+      setZip(ni); 
+    }
+  }
+
+  const setType = (index, value) => {
+    let old = data[index]
+    old["device_class"] = value; 
+    let newa = [...data]
+    newa[index] = old 
+    setData(newa); 
+  }
+
+  const setSize = (index, value) => {
+    let old = data[index]
+    old["device_size"] = value; 
+    let newa = [...data]
+    newa[index] = old 
+    setData(newa); 
+  }
+
+  const setCharges = (index, value) => {
+    let old = data[index]
+    old["charges_per_day"] = value; 
+    let newa = [...data]
+    newa[index] = old 
+    setData(newa); 
   }
 
   return (
@@ -50,11 +112,26 @@ function Calculate() {
         <div className='content'>
             <div className='title2'>Zipcode: {zip}</div>
             <div className='devicesContainer'>
-                {[...Array(devices)].map((e,i) => <div className='device'><Device fields={["Device size (sq inches)", "Hours"]} onChangeFunctions={[f1, f2]}/></div>)}
+                {[...Array(devices)].map((e,i) => <div className='device'>
+                  <Device fields={["Device Type", "Size", "Charges Per Day"]} 
+                  onChangeFunctions={[(val) => setType(i, val), (val) => setSize(i, val), (val) => setCharges(i, val)]}
+                  type = {['dropdown', 'dropdown', 'input']} 
+                dropdowns= {data[i]["device_class"] === "laptop"? [["laptop", "phone", "tablet"], sizes1, []] : [["laptop", "phone", "tablet"], sizes2, []]} 
+                  /></div>)}
             </div>
             <br></br>
             <button onClick={addDevice} className="button">Add device</button>
-            <div style={{color: "white"}}>Total: {total}</div>
+            <br></br>
+            <br></br>
+           <div style={{display:"flex", zIndex:"200", margin: "auto"}}>
+            <Icon label="Beetle" value={ret["miles_honest_volkswagen"]} img={beetle} />
+            <Icon label="Cheating Beetle" value={ret["miles_cheating_volkswagen"]} img={cheating} />
+            <Icon label="Rocket Launch" value={ret["spacex_launches"]} img={rocket} />
+            <Icon label="CO2" value={ret["carbondioxide"]} img={co2} />
+            <Icon label="Cow" value={ret["annual_cow"]} img={cow} />
+            <Icon label="Methane" value={ret["methane"]} img={methane} />
+            <Icon label="Nitrogen" value={ret["nitrogen"]} img={nitrogen} />
+           </div>
       </div>
     }
     </div>
