@@ -17,6 +17,13 @@ zipcodes = pd.read_csv(zipcodes_path, index_col=None)
 zipcodes.set_index("zip", inplace=True)
 zipcodes = zipcodes["Subregion 1"].to_dict()
 
+def compute_co2(battery_size, zipcode):
+    total_wH_per_charge = battery_size*2
+    power_grid_name = zipcodes[zipcode]
+    power_grid_co2 = locales["power_grid_name"]["SRCO2RTA"]
+    total_co2 = (total_wH_per_charge/1000)*power_grid_co2
+    return total_co2
+
 @app.route('/time')
 def get_current_time():
     return {'time': time.time()}
