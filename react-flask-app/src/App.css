@@ -12,7 +12,13 @@
 .title {
   font-family: 'Courier New', Courier, monospace; 
   color: white; 
-  font-size: 15pt;
+  font-size: 30pt;
+  padding: 20px; 
+}
+.title2 {
+  font-family: 'Courier New', Courier, monospace; 
+  color: white; 
+  font-size: 12pt;
   padding: 20px; 
 }
 
@@ -39,4 +45,16 @@
   align-items: center;
   margin: auto;
   transform: translate(-50%, -50%);
+}
+
+.devicesContainer {
+  max-height: 50vh;
+  overflow-y: scroll;
+  overflow-x: hidden; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.devicesContainer::-webkit-scrollbar {
+  display: none;
 }

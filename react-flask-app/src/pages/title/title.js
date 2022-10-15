@@ -12,12 +12,11 @@ function Title(props) {
     document.addEventListener('keydown', function(event){
         console.log(event.key); 
         if(event.key == 'ArrowLeft'){
-            switchThing2(); 
+            switchThing(-1); 
         }
         else if(event.key == 'ArrowRight'){
-            switchThing(); 
+            switchThing(1); 
         }
-		// console.log(`Key: ${event.key} with keycode ${event.keyCode} has been pressed`);
     }); 
 
     const [video, setVideo] = useState(0); 
@@ -33,16 +32,13 @@ function Title(props) {
         // }
     }, [video])
 
-    const switchThing = () => {
-        setVideo((video + 1) % 3); 
-    }
-    const switchThing2 = () => {
-        setVideo((video + 2) % 3); 
+    const switchThing = (x) => {
+        setVideo((video + x) % 3); 
     }
 
   return (
     <div className="Title" style={{display: "flex"}}>
-        <img src={left} onClick={switchThing2} className='but left'/>
+        <img src={left} onClick={() => switchThing(-1)} className='but left'/>
         <div className="titleContainer">
         {
             video == 0 && 
@@ -90,7 +86,7 @@ function Title(props) {
 
         <button className={'button titleButton'} onClick={() => props.onClick(video + 1)}>TELL ME MORE!</button>
         </div>
-        <img src={right} onClick={switchThing} className='but right'/>
+        <img src={right} onClick={() => switchThing(1)} className='but right'/>
     </div>
   );
 }

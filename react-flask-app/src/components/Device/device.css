@@ -9,12 +9,12 @@
     margin: 15px;
 }
 .input{
-    /* background-color: #FBF1DA;  */
     border-color: #3E3924;
     border-radius: 9px 9px 9px 9px;
     border-style: none;
+    width: fit-content; 
+    margin: auto; 
 }
-
 .pad{
     width: 10px; 
     background-color: #3E3924;
