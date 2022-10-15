@@ -18,6 +18,7 @@ zipcodes.set_index("zip", inplace=True)
 zipcodes = zipcodes["Subregion 1"].to_dict()
 
 def compute_co2(battery_size, zipcode):
+    global locales, zipcodes
     total_wH_per_charge = battery_size*2
     power_grid_name = zipcodes[zipcode]
     power_grid_co2 = locales["power_grid_name"]["SRCO2RTA"]
