@@ -10,7 +10,6 @@ import right from "../../files/righta.png"
 function Title(props) {
 
     document.addEventListener('keydown', function(event){
-        console.log(event.key); 
         if(event.key == 'ArrowLeft'){
             switchThing(-1); 
         }

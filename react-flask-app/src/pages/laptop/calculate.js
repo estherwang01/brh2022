@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css'
 import Device from '../../components/Device/device';
 import video from "../../files/duck.mp4"; 
-import { getInt } from "../../util"; 
+import { getInt, isValidZipCode } from "../../util"; 
 import left from "../../files/lefta.png"; 
 import Icon from '../../components/icon/icon';
 
@@ -20,7 +20,7 @@ function Calculate() {
     "mode": "normal",
     "device_class" : "laptop",
     "device_size" : "large",
-    "charges_per_day" : 1.0
+    "charges_per_day" : 0.0
   }
   const [view, setView] = useState(0); 
   const [zip, setZip] = useState(12345); 
@@ -28,7 +28,7 @@ function Calculate() {
     "mode": "normal",
     "device_class" : "laptop",
     "device_size" : "large",
-    "charges_per_day" : 1.0
+    "charges_per_day" : 0.0
   }]); 
 
   const [devices, setDevices] = useState(1); 
@@ -54,8 +54,10 @@ function Calculate() {
   }
 
   const setZipcode = (n) => {
-    let ni = getInt(n, 14853); 
-    setZip(ni); 
+    if(isValidZipCode(n)){
+      let ni = getInt(n, 14853); 
+      setZip(ni); 
+    }
   }
 
   const setType = (index, value) => {
@@ -67,6 +69,7 @@ function Calculate() {
   }
 
   const setSize = (index, value) => {
+    console.log(value); 
     let old = data[index]
     old["device_size"] = value; 
     let newa = [...data]
@@ -108,8 +111,11 @@ function Calculate() {
             <div className='title2'>Zipcode: {zip}</div>
             <div className='devicesContainer'>
                 {[...Array(devices)].map((e,i) => <div className='device'>
-                  <Device fields={["Device Type", "Size (small/medium/large)", "Charges Per Day"]} 
-                  onChangeFunctions={[(val) => setType(i, val), (val) => setSize(i, val), (val) => setCharges(i, val)]}/></div>)}
+                  <Device fields={["Device Type", "Size", "Charges Per Day"]} 
+                  onChangeFunctions={[(val) => setType(i, val), (val) => setSize(i, val), (val) => setCharges(i, val)]}
+                  type = {['dropdown', 'dropdown', 'input']} 
+                dropdowns={[["laptop", "phone", "tablet"], ["large", "small"], []]} 
+                  /></div>)}
             </div>
             <br></br>
             <button onClick={addDevice} className="button">Add device</button>
