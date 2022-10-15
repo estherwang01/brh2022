@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import Device from './device';
-import video from "./duck.mp4"
+import '../../App.css'
+import Device from '../../components/Device/device';
+import video from "../../files/duck.mp4"; 
 
 function Calculate() {
   const [devices, setDevices] = useState(1); 

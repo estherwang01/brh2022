@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import './title.css';
 import Typed from "react-typed"
-import akuna from "./akuna.mp4"
-import elephant from "./elephant.mp4"
-import omkar from "./omkar.mp4"
-import left from "./lefta.png"
-import right from "./righta.png"
+import akuna from "../../files/akuna.mp4"
+import elephant from "../../files/elephant.mp4"
+import omkar from "../../files/omkar.mp4"
+import left from "../../files/lefta.png"
+import right from "../../files/righta.png"
 
 function Title(props) {
+
+    document.addEventListener('keydown', function(event){
+        console.log(event.key); 
+        if(event.key == 'ArrowLeft'){
+            switchThing2(); 
+        }
+        else if(event.key == 'ArrowRight'){
+            switchThing(); 
+        }
+		// console.log(`Key: ${event.key} with keycode ${event.keyCode} has been pressed`);
+    }); 
 
     const [video, setVideo] = useState(0); 
     const strings = [
@@ -17,9 +28,9 @@ function Title(props) {
     ]
 
     useEffect(()=>{
-        if(document.querySelector('video') != null){
-            document.querySelector('video').playbackRate = .5;
-        }
+        // if(document.querySelector('video') != null){
+        //     document.querySelector('video').playbackRate = .5;
+        // }
     }, [video])
 
     const switchThing = () => {
