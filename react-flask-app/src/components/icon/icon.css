@@ -1,0 +1,23 @@
+.iconContainer{
+
+}
+.iconFlex{
+    display: flex; 
+}
+.iconLabel{
+    font-family: 'Courier New', Courier, monospace; 
+    color: white; 
+    font-size: 30pt;
+    padding: 20px; 
+
+}
+.iconValue{
+    font-family: 'Courier New', Courier, monospace; 
+    color: white; 
+    font-size: 30pt;
+    padding: 20px; 
+}
+
+.iconImage{
+    
+}
