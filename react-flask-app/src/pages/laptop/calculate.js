@@ -6,6 +6,14 @@ import { getInt } from "../../util";
 import left from "../../files/lefta.png"; 
 import Icon from '../../components/icon/icon';
 
+import beetle from "../../files/beetle.png"; 
+import cheating from "../../files/cheating_beetle.png"
+import co2 from "../../files/co2_oilrig.jpg"; 
+import cow from "../../files/tipped_cow.png"; 
+import methane from "../../files/methane_flamethrower.jpg"; 
+import nitrogen from "../../files/nitrogen_natgas.jpg"
+import rocket from "../../files/rocketship.png"; 
+
 function Calculate() {
 
   const defaultVals = {
@@ -15,14 +23,14 @@ function Calculate() {
     "charges_per_day" : 1.0
   }
   const [view, setView] = useState(0); 
-  const [zip, setZip] = useState(14853); 
+  const [zip, setZip] = useState(12345); 
   const [data, setData] = useState([{
     "mode": "normal",
     "device_class" : "laptop",
     "device_size" : "large",
     "charges_per_day" : 1.0
   }]); 
-  
+
   const [devices, setDevices] = useState(1); 
   const [ret, setRet] = useState({}); 
 
@@ -35,10 +43,10 @@ function Calculate() {
           'Content-Type' : 'application/json'
         },
         body: JSON.stringify(modified_data)
-        }).then(response => response.json()).then(dat => { setRet(dat); })
+        }).then(response => response.json()).then(dat => { setRet(dat);})
     }
     fetchData()
-  }, [data, ret])
+  }, [data])
 
   const addDevice = () => { 
     setDevices(devices+1); 
@@ -53,19 +61,25 @@ function Calculate() {
   const setType = (index, value) => {
     let old = data[index]
     old["device_class"] = value; 
-    setData([...data, old]); 
+    let newa = [...data]
+    newa[index] = old 
+    setData(newa); 
   }
 
   const setSize = (index, value) => {
     let old = data[index]
     old["device_size"] = value; 
-    setData([...data, old]); 
+    let newa = [...data]
+    newa[index] = old 
+    setData(newa); 
   }
 
   const setCharges = (index, value) => {
     let old = data[index]
     old["charges_per_day"] = value; 
-    setData([...data, old]); 
+    let newa = [...data]
+    newa[index] = old 
+    setData(newa); 
   }
 
   return (
@@ -99,14 +113,16 @@ function Calculate() {
             </div>
             <br></br>
             <button onClick={addDevice} className="button">Add device</button>
-           <div style={{display:"flex"}}>
-            <Icon label="" value="" img="" />
-            <Icon label="" value="" img="" />
-            <Icon label="" value="" img="" />
-            <Icon label="" value="" img="" />
-            <Icon label="" value="" img="" />
-            <Icon label="" value="" img="" />
-            <Icon label="" value="" img="" />
+            <br></br>
+            <br></br>
+           <div style={{display:"flex", zIndex:"200", margin: "auto"}}>
+            <Icon label="Beetle" value={ret["miles_honest_volkswagen"]} img={beetle} />
+            <Icon label="Cheating Beetle" value={ret["miles_cheating_volkswagen"]} img={cheating} />
+            <Icon label="Rocket Launch" value={ret["spacex_launches"]} img={rocket} />
+            <Icon label="CO2" value={ret["carbondioxide"]} img={co2} />
+            <Icon label="Cow" value={ret["annual_cow"]} img={cow} />
+            <Icon label="Methane" value={ret["methane"]} img={methane} />
+            <Icon label="Nitrogen" value={ret["nitrogen"]} img={nitrogen} />
            </div>
       </div>
     }

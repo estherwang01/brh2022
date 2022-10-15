@@ -4,11 +4,11 @@ import "./icon.css";
 function Icon(props) {
   return (
     <div className="iconContainer">
-        <img className='iconImage' src={props.image} />
-        <div className='iconFlex'>
-            <div className='iconLabel'>{props.label}</div>
-            <div className='iconValue'>{props.value}</div>
-        </div>
+        <img className='iconImage' src={props.img} />
+        {/* <div className='iconFlex'> */}
+            <div className='iconLabel'>{props.label + ": " + props.value.toFixed(2)}</div>
+            {/* <div className='iconValue'>{props.value.toFixed(2)}</div> */}
+        {/* </div> */}
     </div>
   );
 }
