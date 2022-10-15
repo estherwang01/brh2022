@@ -26,7 +26,7 @@ def compute_co2(battery_size: float, zipcode: int, num_charges: int = 1) -> dict
 	power_grid_name = zipcodes.get(zipcode, "Unknown")
 	if power_grid_name == "Unknown":
 		return "Unknown"
-	power_grid = locales[power_grid_name]
+	power_grid = locales[power_grid_name].copy()
 	for key in power_grid:
 		power_grid[key] *= multiplier
 	return power_grid
