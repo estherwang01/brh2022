@@ -1,7 +1,7 @@
 import time
 import os
 import pandas as pd
-from flask import Flask
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -34,3 +34,9 @@ def get_current_time():
 @app.route('/zipcode_ithaca')
 def get_zipcode():
 	return {'region': zipcodes.get(14850, "Unknown")}
+
+@app.route('/compute_co2', methods=['POST'])
+def get_co2():
+    battery_size = request.json['battery_size']
+    zipcode = request.json['zipcode']
+    return {'co2' : compute_co2(battery_size, zipcode)}
