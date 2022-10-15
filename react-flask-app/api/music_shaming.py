@@ -1,6 +1,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-
+import re
 
 playlist_id_lookup = None
 
@@ -14,6 +14,6 @@ def get_playlist_artists(playlist_id):
         for artist in item['track']['artists']:
             if artist['name'] not in artists: artists.append(artist['name'])
     return artists
-
+ 
 artists = get_playlist_artists("1EbsEZUl2jYURerJERuDqA")
 print(artists)

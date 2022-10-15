@@ -41,7 +41,7 @@ with open('artists_links_cities.json') as artist_file:
 
 artists = list(artists_cities_links.keys())
 
-for i in artists[30:60]:
+for i in artists[180:200]:
   if 'cities' in artists_cities_links[i]:
     continue
   cities_list = get_cities_from_artist(i)
