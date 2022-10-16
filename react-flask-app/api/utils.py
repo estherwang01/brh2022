@@ -1,5 +1,5 @@
 import pandas as pd 
+from geopy.geocoders import Nominatim
 
-
-def process_zipcode(zipcode, grids_df, zipcodes_df):
-  pass
+def compute_distances(city1, city2):
+  geolocator = Nominatim()
