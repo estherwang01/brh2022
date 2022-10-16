@@ -6,7 +6,13 @@ import { getInt, isValidZipCode } from "../../util";
 function Omkar() {
   const [view, setView] = useState(0);
   const [zip, setZip] = useState(14850);
-  const [ret, setRet] = useState({});
+  const [ret, setRet] = useState({
+    "car_user_percentage": 0, 
+    "csa": "",
+    "new_car_user_percentage":0, 
+    "new_csa":"", 
+    "total_co2": 0
+  });
 
   useEffect(() => {
   }, [ret])
@@ -20,7 +26,9 @@ function Omkar() {
       },
       body: JSON.stringify(modified_data)
     }).then(response => response.json()).then(dat => {
-      setRet(dat);
+      if(dat["successful_retrieval"]){
+        setRet(dat);
+      }
     })
   }
 
@@ -31,10 +39,9 @@ function Omkar() {
     }
   }
 
-  console.log(ret); 
-
   return (
     <div className="App" >
+      {console.log(ret)}
       {view === 0 ?
         <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translate(-50%, 0)" }}>
           <div style={{ display: "flex", width: "fit-content", margin: "auto" }}>
@@ -49,7 +56,10 @@ function Omkar() {
         </div>
         :
         <div>
-          <div className='title2'>Here's a customized plan to improve your public transportation:</div>
+          <div className='title2'>You currently consume {(ret["total_co2"]).toFixed(2)} pounds of CO2 per year in {ret["csa"].substring(0, ret["csa"].indexOf(","))}.</div>
+          <div className='title2'>{(ret["car_user_percentage"]*100).toFixed(2)}% of people here use cars. That's really fucking bad.</div>
+          <div className='title2'>Might we suggest you move to {ret["new_csa"].substring(0, ret["csa"].indexOf(","))} where only {(ret["new_car_user_percentage"]*100).toFixed(2)}% of people use cars. </div>
+          <div className='title2'>Also, here's a customized plan to improve your public transportation in your area:</div>
           <img alt="" src={train} />
         </div>}
     </div>
