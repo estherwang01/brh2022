@@ -142,11 +142,6 @@ def get_co2():
 	ret_val["miles_honest_volkswagen"] = ret_val["nitrogen"] / 2.2 * 1000 / 1.6 / 0.043
 	return ret_val
 
-
-if __name__ == "__main__":
-	app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-
-
 @app.route('/compute_cars', methods=['POST'])
 def get_stats_cars():
 	body = json.loads(request.data)
@@ -163,6 +158,10 @@ def get_stats_cars():
 	ret_val.update(stats)
 	ret_val.update(next_best_csa)
 	return ret_val
+
+if __name__ == "__main__":
+	app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 	
 
