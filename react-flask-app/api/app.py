@@ -70,7 +70,7 @@ def get_csa_from_zipcode(zipcode: int):
 	for idx, row in csa_gdf.iterrows():
 		if coords.within(row['geometry']):
 			return idx, True
-	return 14850, False
+	return "", False
 
 def compute_stats(csa: str):
 	global csa_gdf, AMERICAN_COMMUTE, CO2_PER_MILE
