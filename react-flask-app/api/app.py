@@ -6,6 +6,7 @@ import geopandas as gpd
 import math
 from shapely.geometry import Point, Polygon
 from flask import Flask, request, jsonify
+import music_shaming
 
 app = Flask(__name__)
 
@@ -50,7 +51,7 @@ car_indices = list(filter(lambda x: x.startswith("Car"), list(csa_gdf.columns)))
 csa_gdf['car_user_percentage'] = csa_gdf[car_indices].sum(axis=1)/csa_gdf["Total:"]
 
 AMERICAN_COMMUTE = 41 # miles
-CO2_PER_MILE = 0.411 #kilograms
+CO2_PER_MILE = 0.9060999 #pounds
 
 EARTH_RADIUS = 6371 # kilometers
 
@@ -77,7 +78,7 @@ def get_csa_from_zipcode(zipcode: int):
 def compute_stats(csa: str):
 	global csa_gdf, AMERICAN_COMMUTE, CO2_PER_MILE
 	car_user_percentage = csa_gdf.loc[csa, 'car_user_percentage']
-	total_co2 = car_user_percentage*AMERICAN_COMMUTE*CO2_PER_MILE
+	total_co2 = car_user_percentage*AMERICAN_COMMUTE*CO2_PER_MILE*365
 	return {"car_user_percentage" : car_user_percentage, "total_co2": total_co2}
 
 def compute_next_best_csa(csa: str):
@@ -94,9 +95,32 @@ def compute_next_best_csa(csa: str):
 		return {}, False
 	return {'new_csa' : ncsas[0][1], 'new_car_user_percentage' : csa_gdf.loc[ncsas[0][1], 'car_user_percentage']}, True
 
+def get_playlist_id(playlist_link):
+	playlist_link = playlist_link.strip()
+	if playlist_link.startswith("https://open.spotify.com/playlist/"):
+		prefix_len = len("https://open.spotify.com/playlist/")
+		return playlist_link[prefix_len:playlist_link.find('?')]
+	else:
+		return "Invalid Link"
+
 
 # compute_co2(100.0, 1886, 1)
 
+@app.route('/playlist_co2', methods=['POST'])
+def get_playlist_co2():
+	body = json.loads(request.data)
+	link = body['link']
+	id = get_playlist_id(link)
+	if id == "Invalid Link":
+		return {"success": False,
+			"privatejetters": ["hi"], 
+			"carbondioxide": 1,
+			"message": "hi"}
+	res = music_shaming.get_playlist_co2_emissions(id)
+	return {"success": True,
+			"privatejetters": res[0], 
+			"carbondioxide": res[1],
+			"message": res[2]}
 
 @app.route('/time')
 def get_current_time():
@@ -158,7 +182,6 @@ def get_stats_cars():
 	stats = compute_stats(csa)
 	next_best_csa, response = compute_next_best_csa(csa)
 	ret_val.update(stats)
-	print(next_best_csa)
 	ret_val.update(next_best_csa)
 	ret_val["successful_retrieval_new"] = response
 	return ret_val
