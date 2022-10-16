@@ -3,6 +3,7 @@ import time
 import os
 import pandas as pd
 from flask import Flask, request, jsonify
+import music_shaming
 
 app = Flask(__name__)
 
@@ -31,9 +32,32 @@ def compute_co2(battery_size: float, zipcode: int, num_charges: int = 1) -> dict
 		power_grid[key] *= multiplier
 	return power_grid
 
+def get_playlist_id(playlist_link):
+	playlist_link = playlist_link.strip()
+	if playlist_link.startswith("https://open.spotify.com/playlist/"):
+		prefix_len = len("https://open.spotify.com/playlist/")
+		return playlist_link[prefix_len:playlist_link.find('?')]
+	else:
+		return "Invalid Link"
+
 
 # compute_co2(100.0, 1886, 1)
 
+@app.route('/playlist_co2', methods=['POST'])
+def get_playlist_co2():
+	body = json.loads(request.data)
+	link = body['link']
+	id = get_playlist_id(link)
+	if id == "Invalid Link":
+		return {"success": False,
+			"privatejetters": ["hi"], 
+			"carbondioxide": 1,
+			"message": "hi"}
+	res = music_shaming.get_playlist_co2_emissions(id)
+	return {"success": True,
+			"privatejetters": res[0], 
+			"carbondioxide": res[1],
+			"message": res[2]}
 
 @app.route('/time')
 def get_current_time():
@@ -80,3 +104,4 @@ def get_co2():
 	ret_val["miles_cheating_volkswagen"] = ret_val["nitrogen"] / 2.2 * 1000 / 1.6 / 1.5
 	ret_val["miles_honest_volkswagen"] = ret_val["nitrogen"] / 2.2 * 1000 / 1.6 / 0.043
 	return ret_val
+

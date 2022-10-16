@@ -1,5 +1,9 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+import json
+
+with open('json_structures/artists_tour_distances.json', 'r') as tour_dists:
+    tour_distances = json.load(tour_dists)
 
 private_jetters = {"Taylor Swift":8293.54,
                    "Jay-Z": 6981.3 ,
@@ -14,17 +18,19 @@ auth_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
 def get_artist_co2_emissions(artist):
-    return 10
+    distances = tour_distances.get(artist,[0,1000])
+    lbs = 5*distances[0] + distances[1]*0.22
+    return lbs
 
 def get_playlist_artists(playlist_id):
-    artists = []
+    artists = {}
     artists_data = []
     tracks = sp.playlist(playlist_id)['tracks']['items']
     for item in tracks:
         for artist in item['track']['artists']:
             artist_data = sp.artist(artist["external_urls"]["spotify"])
+            artists[artist['name']] = artists.get(artist['name'],0)+1
             if artist['name'] not in artists: 
-                artists.append(artist['name'])
                 artists_data.append(artist_data)
 
     return artists, artists_data
@@ -36,10 +42,15 @@ def get_playlist_co2_emissions(playlist_id):
     for artist in artists:
         if artist in private_jetters:
             private_jet_users.append(artist)
-            co2_emissions += private_jetters[artist]
+            co2_emissions += artists[artist]*(2200 * private_jetters[artist])
         else:
-            co2_emmisions += get_artist_co2_emissions(artist[0])
-    return (private_jet_users, co2_emissions)
+            co2_emissions += artists[artist]*get_artist_co2_emissions(artist[0])
+    message = ''
+    if 'Grimes' in artists:
+        message += "We saw Grimes in your playlist... good taste, but we haven't forgotten about Elon."
+    if 'Phoebe Bridgers' in artists:
+        message += "Congratulations for being hot and having good taste in music."
+    return (private_jet_users, co2_emissions, message)
         
 def get_main_genre(artists):
     genres = {}
@@ -49,10 +60,4 @@ def get_main_genre(artists):
     print(artists[0])
     print(genres)
     return max(genres, key=genres.get)
-
-
-artists = get_playlist_artists("5o7lrN0R5bq4rFtqttYOan")
-elon_tax = 'Grimes' in artists[0]
-#print(artists)
-print(get_main_genre(artists))
 
