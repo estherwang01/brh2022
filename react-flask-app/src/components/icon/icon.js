@@ -13,7 +13,11 @@ function Icon(props) {
 	}
 	return (
 		<div className="iconContainer">
-			<img className='iconImage' src={props.img}/>
+			<img className='iconImage' src={props.img} onClick={() => {
+                if(props.onClick){
+                    props.onClick(); 
+                }
+            }}/>
 			{/* <div className='iconFlex'> */}
 			<div className='iconLabel'>{"" + scientific_notation_helper(props.value) + " " + props.label}</div>
 			{/* <div className='iconValue'>{props.value.toFixed(2)}</div> */}

@@ -6,6 +6,8 @@ import Jackson from './pages/Spotify/jackson';
 import Omkar from './pages/laptop/omkar';
 import left from "./files/lefta.png"; 
 
+import Graph from './components/BarGraph/graph';
+
 function App() {
   const [view, setView] = useState(0); 
 
@@ -17,6 +19,7 @@ function App() {
       {view == 3 && <Omkar/>}
       {view != 0 && <img src={left} style={{position: "absolute", top: "-200px", left:"-210px", zIndex:'100', transform: 'scale(0.1)'
           }} onClick={() => setView(0)}/>}
+
     </div>
   );
 }
