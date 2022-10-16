@@ -50,7 +50,7 @@ car_indices = list(filter(lambda x: x.startswith("Car"), list(csa_gdf.columns)))
 csa_gdf['car_user_percentage'] = csa_gdf[car_indices].sum(axis=1)/csa_gdf["Total:"]
 
 AMERICAN_COMMUTE = 41 # miles
-CO2_PER_MILE = 0.411 #kilograms
+CO2_PER_MILE = 0.9060999 #pounds
 
 EARTH_RADIUS = 6371 # kilometers
 
@@ -77,7 +77,7 @@ def get_csa_from_zipcode(zipcode: int):
 def compute_stats(csa: str):
 	global csa_gdf, AMERICAN_COMMUTE, CO2_PER_MILE
 	car_user_percentage = csa_gdf.loc[csa, 'car_user_percentage']
-	total_co2 = car_user_percentage*AMERICAN_COMMUTE*CO2_PER_MILE
+	total_co2 = car_user_percentage*AMERICAN_COMMUTE*CO2_PER_MILE*365
 	return {"car_user_percentage" : car_user_percentage, "total_co2": total_co2}
 
 def compute_next_best_csa(csa: str):
@@ -158,7 +158,6 @@ def get_stats_cars():
 	stats = compute_stats(csa)
 	next_best_csa, response = compute_next_best_csa(csa)
 	ret_val.update(stats)
-	print(next_best_csa)
 	ret_val.update(next_best_csa)
 	ret_val["successful_retrieval_new"] = response
 	return ret_val
