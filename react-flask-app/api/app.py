@@ -66,7 +66,7 @@ def distance(p1: Point, p2: Point):
 
 def get_csa_from_zipcode(zipcode: int):
 	global csa_gdf, zipcodes_to_coords
-	if zipcode not in zipcodes_to_coords:
+	if zipcode not in zipcodes_to_coords.index:
 		return "", False
 	coords = Point(zipcodes_to_coords.loc[zipcode, 'LNG'], zipcodes_to_coords.loc[zipcode, 'LAT'])
 	for idx, row in csa_gdf.iterrows():
