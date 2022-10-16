@@ -1,5 +1,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
 import json
 
 with open('json_structures/artists_tour_distances.json', 'r') as tour_dists:
@@ -16,6 +17,7 @@ elon_tax = False
 
 auth_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(auth_manager=auth_manager)
+
 
 def get_artist_co2_emissions(artist):
     distances = tour_distances.get(artist,[0,1000])
@@ -60,4 +62,5 @@ def get_main_genre(artists):
     print(artists[0])
     print(genres)
     return max(genres, key=genres.get)
+
 
