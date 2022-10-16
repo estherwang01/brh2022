@@ -23,7 +23,7 @@ function Jackson() {
   const [stuff, setStuff] = useState(
 
     <div style={{position: "absolute", width: '100%', top: "50%", transform:"translate(0,-50%)"}}>
-    <div style={{width: "200px", height: "200px", backgroundColor:"white", opacity:".5", margin: 'auto'}}>
+    <div style={{width: "fit-content", height: "200px", backgroundColor:"white", opacity:".5", margin: 'auto'}}>
       <br></br>
       <div className='title' style={{color: "black"}}>300</div>
       <div className='title2' style={{color: "black", marginTop: "-20px"}}>pounds CO2 impact / year</div>
@@ -49,9 +49,9 @@ function Jackson() {
       }else{
         setStuff(
           <div style={{position: "absolute", width: '100%', top: "50%", transform:"translate(0,-50%)"}}>
-          <div style={{width: "200px", height: "200px", backgroundColor:"white", opacity:".5", margin: 'auto'}}>
+          <div style={{width: "fit-content", height: "200px", backgroundColor:"white", opacity:".5", margin: 'auto'}}>
             <br></br>
-            <div className='title' style={{color: "black"}}>{d["carbondioxide"]}</div>
+            <div className='title' style={{color: "black"}}>{d["carbondioxide"].toFixed(0)}</div>
             <div className='title2' style={{color: "black", marginTop: "-20px"}}>pounds CO2 impact / year</div>
           </div>
           <div className='title2'>

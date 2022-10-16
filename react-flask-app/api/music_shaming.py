@@ -1,11 +1,11 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
-<<<<<<< HEAD
-=======
-
->>>>>>> cb652a5fbbb18a460b0a8fe24f110a8f1950a730
 import json
+from os import environ 
+
+SPOTIPY_CLIENT_ID=environ.get('SPOTIPY_CLIENT_ID')
+SPOTIPY_CLIENT_SECRET=environ.get('SPOTIPY_CLIENT_SECRET')
 
 with open('json_structures/artists_tour_distances.json', 'r') as tour_dists:
     tour_distances = json.load(tour_dists)
@@ -16,17 +16,10 @@ private_jetters = {"Taylor Swift":8293.54,
                    "Travis Scott": 3033.3,
                    "Drake": 2000 #educated estimate
 }
-
 elon_tax = False
-
-auth_manager = SpotifyClientCredentials()
+auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID,
+    client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
-
-<<<<<<< HEAD
-=======
-# scope = "user-library-read"
-# sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
->>>>>>> cb652a5fbbb18a460b0a8fe24f110a8f1950a730
 
 def get_artist_co2_emissions(artist):
     distances = tour_distances.get(artist,[0,1000])
