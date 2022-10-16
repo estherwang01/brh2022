@@ -66,6 +66,8 @@ def distance(p1: Point, p2: Point):
 
 def get_csa_from_zipcode(zipcode: int):
 	global csa_gdf, zipcodes_to_coords
+	if zipcode not in zipcodes_to_coords:
+		return "", False
 	coords = Point(zipcodes_to_coords.loc[zipcode, 'LNG'], zipcodes_to_coords.loc[zipcode, 'LAT'])
 	for idx, row in csa_gdf.iterrows():
 		if coords.within(row['geometry']):
@@ -154,13 +156,16 @@ def get_stats_cars():
 	if not success:
 		return ret_val
 	stats = compute_stats(csa)
-	next_best_csa = compute_next_best_csa(csa)
+	next_best_csa, response = compute_next_best_csa(csa)
 	ret_val.update(stats)
+	print(next_best_csa)
 	ret_val.update(next_best_csa)
+	ret_val["successful_retrieval_new"] = response
 	return ret_val
 
 if __name__ == "__main__":
 	app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 
 	
