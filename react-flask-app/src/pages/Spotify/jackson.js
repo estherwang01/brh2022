@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '../../App.css';
 import arrow from "../../files/arrow.png"; 
 import yes from "../../files/yes.jpg"; 
@@ -14,16 +14,16 @@ function Jackson() {
       <div style={{width: "100%", justifyContent: "center"}}>
         <div style={{display:"flex", margin: "auto", width: "fit-content"}}>
           <div className='title2' style={{top: "300px", left:"450px", position: "absolute"}}>Yes</div>
-          <img src={arrow} style={{transform:"rotate(-145deg) scale(.6)"}}/>
-          <img src={arrow} style={{transform:"rotate(145deg) scale(0.6)"}}/>
+          <img alt="" src={arrow} style={{transform:"rotate(-145deg) scale(.6)"}}/>
+          <img alt="" src={arrow} style={{transform:"rotate(145deg) scale(0.6)"}}/>
           <div className='title2' style={{top: "300px", right:"450px", position: "absolute"}}>No</div>
         </div>
         <div style={{marginTop: "-100px"}}>
-            <a href='https://open.spotify.com/playlist/477giD52Poyw3hVzFKXjHY' target="_blank">
-              <img src={yes} style={{left: "320px", width:"200px", position: "absolute"}}/>
+            <a href='https://open.spotify.com/playlist/477giD52Poyw3hVzFKXjHY' target="_blank" rel="noreferrer">
+              <img alt="" src={yes} style={{left: "320px", width:"200px", position: "absolute"}}/>
             </a>
-          <a href='https://open.spotify.com/playlist/1EbsEZUl2jYURerJERuDqA' target="_blank">
-          <img src={no} style={{right: "320px", width:"200px", position: "absolute"}}/>
+          <a href='https://open.spotify.com/playlist/1EbsEZUl2jYURerJERuDqA' target="_blank" rel="noreferrer">
+          <img  alt="" src={no} style={{right: "320px", width:"200px", position: "absolute"}}/>
             </a>
         </div>
       </div>

@@ -21,6 +21,12 @@
   font-size: 12pt;
   padding: 20px; 
 }
+.title3 {
+  font-family: 'Courier New', Courier, monospace; 
+  color: white; 
+  font-size: 18pt;
+  padding: 20px; 
+}
 
 .video{
   width: 100vw; 
@@ -45,10 +51,11 @@
   align-items: center;
   margin: auto;
   transform: translate(-50%, -50%);
+  width: 100%; 
 }
 
 .devicesContainer {
-  max-height: 50vh;
+  max-height: 65vh;
   overflow-y: scroll;
   overflow-x: hidden; 
   scrollbar-width: none;
@@ -62,4 +69,19 @@
 .device{
   width: fit-content; 
   margin: auto; 
+}
+
+.button2{
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+
+  background: #6E6D70;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+  color: #DFDEDF;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
