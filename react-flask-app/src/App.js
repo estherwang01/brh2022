@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Title from './pages/title/title';
 import Calculate from './pages/laptop/calculate';
 import Jackson from './pages/Spotify/jackson';
 import Omkar from './pages/laptop/omkar';
 import left from "./files/lefta.png"; 
-
-import Graph from './components/BarGraph/graph';
 
 function App() {
   const [view, setView] = useState(0); 

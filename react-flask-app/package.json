@@ -24,12 +24,7 @@
     "eject": "react-scripts eject",
     "start-api": "cd api && venv/bin/flask run --no-debugger"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+
   "browserslist": {
     "production": [
       ">0.2%",
