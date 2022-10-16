@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../App.css'
 import Device from '../../components/Device/device';
 import video from "../../files/duck.mp4";
-import {getInt, isValidZipCode} from "../../util";
+import { getInt, isValidZipCode } from "../../util";
 import left from "../../files/lefta.png";
 import Icon from '../../components/icon/icon';
 
@@ -41,7 +41,7 @@ function Calculate() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const modified_data = {"zipcode": zip, "devices": data}
+			const modified_data = { "zipcode": zip, "devices": data }
 			await fetch("/compute_co2", {
 				method: "POST",
 				headers: {
@@ -96,10 +96,10 @@ function Calculate() {
 			{view == 1 &&
 				<img src={left} style={{
 					position: "absolute", top: "-200px", left: "-210px", zIndex: '100', transform: 'scale(0.1)'
-				}} onClick={() => setView(0)}/>
+				}} onClick={() => setView(0)} />
 			}
 			<video autoPlay loop muted className='video'>
-				<source src={video} type="video/mp4"/>
+				<source src={video} type="video/mp4" />
 			</video>
 			<div className="cover"></div>
 			{
@@ -114,7 +114,7 @@ function Calculate() {
 							alignItems: "center"
 						}}>
 							<div className='title2'>Enter your zip code:</div>
-							<input style={{height: "fit-content"}} onChange={(e) => setZipcode(e.target.value)}></input>
+							<input style={{ height: "fit-content" }} onChange={(e) => setZipcode(e.target.value)}></input>
 						</div>
 						<br></br>
 						<button className='button' onClick={() => setView(1)}>aint no way</button>
