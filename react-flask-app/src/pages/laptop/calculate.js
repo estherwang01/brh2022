@@ -53,7 +53,7 @@ function Calculate() {
 			})
 		}
 		fetchData()
-	}, [data])
+	}, [data, zip])
 
 	const addDevice = () => {
 		setDevices(devices + 1);
@@ -93,8 +93,8 @@ function Calculate() {
 
 	return (
 		<div className="App">
-			{view == 1 &&
-				<img src={left} style={{
+			{view === 1 &&
+				<img alt="" src={left} style={{
 					position: "absolute", top: "-200px", left: "-210px", zIndex: '100', transform: 'scale(0.1)'
 				}} onClick={() => setView(0)} />
 			}
@@ -103,7 +103,7 @@ function Calculate() {
 			</video>
 			<div className="cover"></div>
 			{
-				view == 0 ?
+				view === 0 ?
 					<div className='content'>
 						<div className="title">Your laptop and jetset mindset are killing the environment</div>
 						<div style={{
@@ -141,9 +141,9 @@ function Calculate() {
                 <div className='title2' style={{color: "black"}}>Hey guess what you can WLOG away a lot of emissions by cheating ft. Volkswagon</div>
               <div style={{display: "flex"}}>
                 <div style={{position: "relative", top: "40px", left: "75px"}}>
-                  <img src={beetle} style={{width: "100px"}}/>
+                  <img alt="" src={beetle} style={{width: "100px"}}/>
                   <div style={{height: "55px"}}></div>
-                  <img src={cheating} style={{width: "100px"}}/>
+                  <img alt="" src={cheating} style={{width: "100px"}}/>
                 </div>
                 <Graph values={[ret["miles_honest_volkswagen"], ret["miles_cheating_volkswagen"]]} 
                 labels={[ "Honest", "Cheating",]} />
