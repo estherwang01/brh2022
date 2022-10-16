@@ -84,6 +84,7 @@ function Jackson() {
           <img  alt="" src={no} style={{right: "320px", width:"200px", position: "absolute"}}/>
             </a>
         </div>
+        <button onClick={() => setView(0)} className='button2' style={{position: 'absolute', bottom: '50px', transform: "translate(-50%, 0)"}}>take me back to the other grass</button>
       </div>
     </div>
   ) } else {
@@ -96,9 +97,10 @@ function Jackson() {
             }}></input>
           </div>
           <button className='button' onClick={() => { getData(url); 
-          }}>i'm ready to touch some grass</button>
+          }}>i'm ready to touch grass</button>
         </div>
         <div style={{position: "absolute", width: '100%', zIndex:"1", top: "50%"}}>{stuff}</div>
+        <button onClick={() => setView(1)} className='button2' style={{position: 'absolute', bottom: '50px', transform: "translate(-50%, 0)"}}>i want more grass to touch</button>
       </div>
     )
   }
