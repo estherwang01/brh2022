@@ -103,6 +103,17 @@ def get_playlist_id(playlist_link):
 	else:
 		return "Invalid Link"
 
+def compute_co2(battery_size: float, zipcode: int, num_charges: int = 1) -> dict:
+	global locales, zipcodes
+	watt_hour_charge = battery_size * 2
+	multiplier = watt_hour_charge * num_charges / 1000000 * 365
+	power_grid_name = zipcodes.get(zipcode, "Unknown")
+	if power_grid_name == "Unknown":
+		return "Unknown"
+	power_grid = locales[power_grid_name].copy()
+	for key in power_grid:
+		power_grid[key] *= multiplier
+	return power_grid
 
 # compute_co2(100.0, 1886, 1)
 
