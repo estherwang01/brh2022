@@ -8,9 +8,12 @@ function Omkar() {
   const [zip, setZip] = useState(14850);
   const [ret, setRet] = useState({});
 
+  useEffect(() => {
+  }, [ret])
+
   const fetchData = async () => {
-    modifiedData = { "zipcode": zip }
-    await fetch("/compute_co2", {
+    let modified_data = { "zipcode": zip }
+    await fetch("/compute_cars", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -28,14 +31,21 @@ function Omkar() {
     }
   }
 
+  console.log(ret); 
+
   return (
     <div className="App" >
       {view == 0 ?
         <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translate(-50%, 0)" }}>
           <div style={{ display: "flex", width: "fit-content", margin: "auto" }}>
-            <div className='title2'>Enter your zip code</div><input className='input'></input>
+            <div className='title2'>Enter your zip code</div><input className='input' onChange={(e)=>{
+              setZipcode(e.target.value); 
+            }}></input>
           </div>
-          <button className='button' onClick={() => setView(1)}>lfg fucking go!</button>
+          <button className='button' onClick={() => {
+            setView(1); 
+            fetchData(); 
+          }}>lfg fucking go!</button>
         </div>
         :
         <div>

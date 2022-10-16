@@ -90,7 +90,7 @@ def compute_next_best_csa(csa: str):
 	ncsas = list(filter(lambda x: csa_gdf.loc[x[1], 'car_user_percentage'] < curr_car_user_percentage, csas))
 	if len(ncsas) == 0:
 		return {}, False
-	return {'new_csa' : ncsas[0][1], 'percentage' : csa_gdf.loc[ncsas[0][1], 'new_car_user_percentage']}, True
+	return {'new_csa' : ncsas[0][1], 'new_car_user_percentage' : csa_gdf.loc[ncsas[0][1], 'car_user_percentage']}, True
 
 
 # compute_co2(100.0, 1886, 1)
@@ -150,7 +150,7 @@ def get_stats_cars():
 	ret_val = {}
 	csa, success = get_csa_from_zipcode(zipcode)
 	ret_val["csa"] = csa
-	ret_val["successful_retrieval"] = success1
+	ret_val["successful_retrieval"] = success
 	if not success:
 		return ret_val
 	stats = compute_stats(csa)
