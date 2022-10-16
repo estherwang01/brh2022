@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import "./device.css"; 
 import { getInt } from "../../util"; 
 
@@ -9,7 +9,7 @@ function Device(props) {
         {props.fields.map((field, i) => <>
             <div className="field">{field}</div>
             <div className='pad'></div>
-            {props.type[i] == 'input' ? 
+            {props.type[i] === 'input' ? 
             <input className='input' onChange={(e) => {
                 props.onChangeFunctions[i](getInt(e.target.value, 0))
             }

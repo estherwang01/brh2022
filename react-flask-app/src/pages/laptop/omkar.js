@@ -35,7 +35,7 @@ function Omkar() {
 
   return (
     <div className="App" >
-      {view == 0 ?
+      {view === 0 ?
         <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translate(-50%, 0)" }}>
           <div style={{ display: "flex", width: "fit-content", margin: "auto" }}>
             <div className='title2'>Enter your zip code</div><input className='input' onChange={(e)=>{
@@ -50,7 +50,7 @@ function Omkar() {
         :
         <div>
           <div className='title2'>Here's a customized plan to improve your public transportation:</div>
-          <img src={train} />
+          <img alt="" src={train} />
         </div>}
     </div>
   );

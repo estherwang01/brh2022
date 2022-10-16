@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import "./icon.css";
 
 
@@ -13,7 +13,7 @@ function Icon(props) {
 	}
 	return (
 		<div className="iconContainer">
-			<img className='iconImage' src={props.img} onClick={() => {
+			<img alt="" className='iconImage' src={props.img} onClick={() => {
                 if(props.onClick){
                     props.onClick(); 
                 }
